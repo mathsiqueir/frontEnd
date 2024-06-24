@@ -1,11 +1,9 @@
 $("#logIn").click(emailExists);
 $("#SignUp").click(createAccount);
 
-let message = $('#message')
+let message = $("#message");
 
-function localStorareSaveUserData(){
-  
-}
+
 function createAccount() {
   let email = $("#email").val();
   let nome = $("#name").val();
@@ -13,13 +11,7 @@ function createAccount() {
   let password = $("#password").val();
   let confirmPassword = $("#confirmPassword").val();
 
-  if (
-    !email ||
-    !nome ||
-    !password ||
-    !cep ||
-    !confirmPassword
-  ) {
+  if (!email || !nome || !password || !cep || !confirmPassword) {
     message.text("Todos os campos devem ser preenchidos.");
     return;
   }
@@ -31,28 +23,30 @@ function createAccount() {
     $("#wrongPassword").text("");
   }
 
-  let users = JSON.parse(localStorage.getItem('users')) || []
-  if(users.find(user=>{user.email === email})){
-    message.text('Email já cadastrado!')
-    return
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  if (
+    users.find((user) => {
+      user.email === email;
+    })
+  ) {
+    message.text("Email já cadastrado!");
+    return;
   }
 
-  users.push({email,nome,cep,password})
-  localStorage.setItem('users', JSON.stringify(users))
-  message.text('Conta criada com sucesso');
-  
+  users.push({ email, nome, cep, password });
+  localStorage.setItem("users", JSON.stringify(users));
+  message.text("Conta criada com sucesso");
+
   clearSignUpForm();
 }
-
-
 
 function emailExists() {
   let logInEmail = $("#logInEmail").val();
   let logInPassword = $("#logInPassword").val();
 
-  let users = JSON.parse(localStorage.getItem('users')) || []
-  let user = users.find(user=>user.email === logInEmail)
- 
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let user = users.find((user) => user.email === logInEmail);
+
   if (user) {
     if (logInPassword === user.password) {
       message.text("Login bem-sucedido");
@@ -65,7 +59,6 @@ function emailExists() {
     message.text("Email não encontrado");
   }
 }
-
 
 function clearSignUpForm() {
   $("#email").val("");
