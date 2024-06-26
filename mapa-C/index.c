@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 
 #define MAX_SIZE 100
 
@@ -8,11 +9,6 @@ struct Pilha {
     char itens[MAX_SIZE];
     int topo;
 };
-
-int cheia(struct Pilha *p){
-    //
-    return p->topo == MAX_SIZE -1
-}
 
 void inicializar(struct Pilha *p) {
     p->topo = -1;
@@ -23,28 +19,39 @@ int vazia(struct Pilha *p) {
 }
 
 void push(struct Pilha *p, char item) {
-    if(cheia(p)){
-        printf('')
+    if(p->topo == MAX_SIZE - 1){
+        printf('Fila cheia.\n ');
+    }else{
+        p->itens[++p->topo] = item;
     }
-    //adicionar a palavra a pilha de dados
-    //a variavel item no indice topo mais 1 recebe o item adicionado
-   return p->itens[++(p->topo)] = item;
-   
 }
 
 char pop(struct Pilha *p) {
- //excluir o ultimo elemento da pilha
+      if(vazia(p)){
+        printf('Fila Vazia.\n');
+      }else{
+        return p->itens[(p->topo--)];
+      }
+}
+
+char topo(struct Pilha *p) {
+    if(vazia(p)){
+        printf('\na pilha está vazia.\n');
+        return '\0';
+    }else{
+        return p->itens[p->topo];
+    }
 }
 
 void limpar(struct Pilha *p) {
-    //limpar toda a pilha de dados
-}
-char topo(struct Pilha *p) {
-//exbir o ultimo elemento adicionado na pilha
+    if(vazia(p)){
+        printf('a pilha está vazia.\n');
+    }else{
+      inicializar(p);
+    }
 }
 
-
-int main(void) {
+int main() {
     setlocale(LC_ALL, "Portuguese");
     struct Pilha p;
     inicializar(&p);
@@ -107,5 +114,6 @@ int main(void) {
             }
         }
     }
+
     return 0;
 }
